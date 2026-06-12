@@ -1,20 +1,20 @@
 // RALD Dev Console — Settings
+// Sprint 3: identity actions redirected to profiles.rald.cloud (ONE RALD)
 // LILCKY STUDIO LIMITED
 
-
-import { Shield, Globe, Bell, User } from "lucide-react";
+import { Shield, Globe, Bell, User, ExternalLink } from "lucide-react";
 import { getState } from "@/lib/store";
+import { redirectToIdentity } from "@/lib/auth";
 
 export default function SettingsPage() {
   const { user } = getState();
 
-
   const TRUST_INFO = [
-    { level: 1, label: "Personal Developer", desc: "Default level. Access to basic APIs." },
-    { level: 2, label: "Verified Developer", desc: "Identity verified. Higher rate limits." },
+    { level: 1, label: "Personal Developer",    desc: "Default level. Access to basic APIs." },
+    { level: 2, label: "Verified Developer",    desc: "Identity verified. Higher rate limits." },
     { level: 3, label: "Verified Organization", desc: "Organization account verified." },
-    { level: 4, label: "Strategic Partner", desc: "Advanced API access and production approval." },
-    { level: 5, label: "RALD Certified Partner", desc: "Full ecosystem access. Highest rate limits." },
+    { level: 4, label: "Strategic Partner",     desc: "Advanced API access and production approval." },
+    { level: 5, label: "RALD Certified Partner",desc: "Full ecosystem access. Highest rate limits." },
   ];
 
   return (
@@ -32,12 +32,12 @@ export default function SettingsPage() {
           background: "var(--surface-2)", border: "1px solid var(--border)",
           borderRadius: 12, padding: 20,
         }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 20 }}>
             {[
-              { label: "Username", value: `@${user?.username ?? "—"}` },
-              { label: "Email", value: user?.email ?? "—" },
-              { label: "RALD Internal ID", value: user?.rald_internal_id ?? "—" },
-              { label: "Trust Level", value: user?.trust_level ?? "—" },
+              { label: "Username",        value: `@${user?.username ?? "—"}` },
+              { label: "Email",           value: user?.email ?? "—" },
+              { label: "RALD Internal ID",value: user?.rald_internal_id ?? "—" },
+              { label: "Trust Level",     value: user?.trust_level ?? "—" },
             ].map(({ label, value }) => (
               <div key={label}>
                 <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>{label}</div>
@@ -45,6 +45,54 @@ export default function SettingsPage() {
               </div>
             ))}
           </div>
+
+          {/* ONE RALD: all identity changes happen at profiles.rald.cloud */}
+          <div style={{
+            borderTop: "1px solid var(--border)", paddingTop: 16,
+            display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap",
+          }}>
+            <button
+              onClick={() => redirectToIdentity("profile")}
+              style={{
+                padding: "9px 16px", borderRadius: 8,
+                background: "var(--primary)", color: "var(--surface)",
+                border: "none", fontSize: 12, fontWeight: 700, cursor: "pointer",
+                display: "flex", alignItems: "center", gap: 6,
+              }}
+            >
+              <ExternalLink size={11} />
+              Manage RALD Account
+            </button>
+            <button
+              onClick={() => redirectToIdentity("security")}
+              style={{
+                padding: "9px 16px", borderRadius: 8,
+                background: "transparent", color: "var(--text-muted)",
+                border: "1px solid var(--border)", fontSize: 12, fontWeight: 600, cursor: "pointer",
+                display: "flex", alignItems: "center", gap: 6,
+              }}
+            >
+              Security &amp; Devices
+            </button>
+            <button
+              onClick={() => redirectToIdentity("developer")}
+              style={{
+                padding: "9px 16px", borderRadius: 8,
+                background: "transparent", color: "var(--text-muted)",
+                border: "1px solid var(--border)", fontSize: 12, fontWeight: 600, cursor: "pointer",
+                display: "flex", alignItems: "center", gap: 6,
+              }}
+            >
+              Developer Settings
+            </button>
+          </div>
+          <p style={{ fontSize: 11, color: "var(--text-dim)", marginTop: 10 }}>
+            Identity changes are managed at{" "}
+            <a href="https://profiles.rald.cloud" style={{ color: "var(--text-muted)" }} target="_blank" rel="noopener noreferrer">
+              profiles.rald.cloud
+            </a>
+            {" "}and apply across all RALD products instantly.
+          </p>
         </div>
       </section>
 
