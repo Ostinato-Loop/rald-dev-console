@@ -1,0 +1,4 @@
+# Cloudflare Pages — RALD Developer Console (console.rald.cloud)
+# SPA catch-all required: React Router routes other than / return 404 without this.
+# Without this file, direct navigation to /keys, /apps, /audit etc. shows CF 404.
+/*  /index.html  200

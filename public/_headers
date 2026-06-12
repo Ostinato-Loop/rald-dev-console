@@ -1,0 +1,24 @@
+# Cloudflare Pages security + cache headers — RALD Dev Console (console.rald.cloud)
+
+# Hashed assets — immutable 1 year
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+  Vary: Accept-Encoding
+
+# HTML shell + root — always fresh with strict security policy
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://auth.rald.cloud https://*.supabase.co https://*.replit.dev https://*.pages.dev; frame-ancestors 'none'
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://auth.rald.cloud https://*.supabase.co https://*.replit.dev https://*.pages.dev; frame-ancestors 'none'
