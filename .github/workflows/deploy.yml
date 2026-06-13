@@ -32,7 +32,7 @@ jobs:
         run: npm run build
         env:
           VITE_RALD_AUTH_URL: https://auth.rald.cloud
-          VITE_RALD_IDENTITY_URL: https://identity.rald.cloud
+          VITE_RALD_IDENTITY_URL: https://profiles.rald.cloud
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
